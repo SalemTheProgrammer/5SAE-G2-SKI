@@ -15,13 +15,19 @@ pipeline {
             }
         }
 
+
+ stage('Run Tests') { // Nouveau stage pour exécuter les tests
+            steps {
+                sh 'mvn test' // Exécute les tests unitaires
+            }
+        }
+
   stage('SonarQube') {
             steps {
              sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonarsonar1* -Dmaven.test.skip=true';
            }
        }
         
-  
 
       stage('Nexus') {
             steps {
