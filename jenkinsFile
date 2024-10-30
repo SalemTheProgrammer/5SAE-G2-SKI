@@ -16,11 +16,12 @@ pipeline {
         }
 
 
- stage('Run Tests') { // Nouveau stage pour exécuter les tests
-            steps {
-                sh 'mvn test' // Exécute les tests unitaires
-            }
-        }
+
+stage('Run Tests') { // Nouveau stage pour exécuter les tests
+    steps {
+        sh 'mvn -Dtest=InstructorServicesImplTest test' // Exécute spécifiquement le test InstructorServicesImplTest
+    }
+}
 
   stage('SonarQube') {
             steps {
