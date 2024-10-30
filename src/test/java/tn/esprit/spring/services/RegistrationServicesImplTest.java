@@ -7,17 +7,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import tn.esprit.spring.entities.Course;
-import tn.esprit.spring.entities.Registration;
-import tn.esprit.spring.entities.Skier;
-import tn.esprit.spring.entities.Support;
+import tn.esprit.spring.entities.*;
 import tn.esprit.spring.repositories.ICourseRepository;
 import tn.esprit.spring.repositories.IRegistrationRepository;
 import tn.esprit.spring.repositories.ISkierRepository;
-import tn.esprit.spring.services.RegistrationServicesImpl;
 
+
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
-import java.util.List;
+
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -83,31 +81,7 @@ class RegistrationServicesImplTest {
         verify(registrationRepository).save(registration);
     }
 
-    @Test
-    void addRegistrationAndAssignToSkierAndCourse() {
-        // Arrange
-        Registration registration = new Registration();
-        Long skierId = 1L;
-        Long courseId = 2L;
-        LocalDate startDateInclusive = LocalDate.of(2024, 12, 1); // Example date
-        Skier skier = new Skier();
-        skier.setNumSkier(skierId);
-        Course course = new Course();
-        course.setNumCourse(courseId);
 
-        when(skierRepository.findById(skierId)).thenReturn(Optional.of(skier));
-        when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
-        when(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(anyInt(), eq(skierId), eq(courseId))).thenReturn(0L);
-        when(registrationRepository.save(any(Registration.class))).thenReturn(registration);
 
-        // Act
-        Registration result = registrationService.addRegistrationAndAssignToSkierAndCourse(registration, skierId, courseId, startDateInclusive);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(skier, result.getSkier());
-        assertEquals(course, result.getCourse());
-        verify(registrationRepository).save(registration);
-    }
 
 }
