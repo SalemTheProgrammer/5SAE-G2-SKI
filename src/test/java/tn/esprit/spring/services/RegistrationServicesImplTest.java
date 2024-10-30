@@ -7,19 +7,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import tn.esprit.spring.entities.*;
+import tn.esprit.spring.entities.Registration;
+import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.repositories.ICourseRepository;
 import tn.esprit.spring.repositories.IRegistrationRepository;
 import tn.esprit.spring.repositories.ISkierRepository;
-
-
-import javax.persistence.EntityNotFoundException;
-import java.time.LocalDate;
-
 import java.util.Optional;
-
+import tn.esprit.spring.entities.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
+
 
 @ExtendWith(MockitoExtension.class)
 class RegistrationServicesImplTest {
@@ -80,8 +78,6 @@ class RegistrationServicesImplTest {
         assertEquals(course, result.getCourse());
         verify(registrationRepository).save(registration);
     }
-
-
 
 
 }

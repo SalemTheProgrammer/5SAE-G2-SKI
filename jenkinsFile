@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('GIT') {
+            steps {
+                git branch: 'INESRDISSI-5SAE7-G2',
+                    url: 'https://github.com/SalemTheProgrammer/5SAE-G2-SKI.git'
+            }
+        }
+        
+        stage('Compile Stage') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+
+
+stage('Run Tests') { // Nouveau stage pour exécuter les tests
+    steps {
+        sh 'mvn -Dtest=InstructorServicesImplTest test' // Exécute spécifiquement le test InstructorServicesImplTest
+    }
+}
+
+  stage('SonarQube') {
+            steps {
+             sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonarsonar1* -Dmaven.test.skip=true';
+           }
+       }
+        
+
+      stage('Nexus') {
+            steps {
+             sh 'mvn deploy -Dmaven.test.skip=true';
+           }
+       }
+           
+
+    }
+}
