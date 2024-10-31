@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // Define your SonarQube and Nexus credentials securely in Jenkins
-        SONARQUBE_LOGIN = credentials('sonarqube-login') // Use Jenkins credentials
-        NEXUS_URL = 'http://your-nexus-url/repository/maven-releases' // Update with your Nexus URL
+        SONARQUBE_LOGIN = credentials('sonarqube-login') 
+        NEXUS_URL = 'http://192.168.33.10:8081/repository/maven-releases' 
     }
 
     stages {
