@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    tools {
+        jdk 'JAVA_HOME'
+        maven 'M2_HOME'
+    }
+    stages {
+        stage('GIT') {
+            steps {
+                git branch: 'master',
+                url: 'https://github.com/SalemTheProgrammer/5SAE-G2-SKI'
+            }
+        }
+        stage('Compile Stage') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+        
+           stage('SonarQube') {
+            steps {
+             sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sakouhi98 -Dmaven.test.skip=true';
+           }
+       }
+           stage('Nexus') {
+            steps {
+                sh 'mvn deploy -Dmaven.test.skip=true';
+            }
+           }
+    }
+}
+
