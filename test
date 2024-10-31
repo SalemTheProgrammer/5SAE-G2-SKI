@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+ 
+    environment {
+        // Set the SonarQube environment
+        SONARQUBE_URL = 'http://localhost:9000' // Update if the SonarQube instance runs elsewhere
+        SONARQUBE_TOKEN = 'sqa_aa90524b12fa3b7fd4dcd8050c236ff86ca9ab9a' // Replace with your actual token
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                // Clone the repository and checkout the SALEMDAHMANI-5SAE07-G2 branch
+                git branch: 'OMAR-5SAE7-G2', url: 'https://github.com/SalemTheProgrammer/5SAE-G2-SKI.git'
+            }
+        }
+
+        stage('MVN CLEAN') {
+            steps {
+                // Run Maven clean command
+                sh 'mvn clean'
+            }
+        }
+
+        stage('MVN COMPILE') {
+            steps {
+                // Run Maven compile command
+                sh 'mvn compile'
+            }
+        }
+
+        stage('MVN SONARQUBE') {
+            steps {
+                // Run Maven SonarQube analysis command
+                withSonarQubeEnv('sonarqube-omar') { // Make sure 'SonarQube' matches the name configured in Jenkins
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=SonarQubeTest -Dsonar.host.url=${SONARQUBE_URL} -Dsonar.login=${SONARQUBE_TOKEN}'
+                }
+            }
+        }
+        stage('Nexus') {
+            steps {
+                sh 'mvn deploy -Dmaven.test.skip=true';
+            }
+           }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        success {
+            echo 'Build and analysis completed successfully!'
+        }
+        failure {
+            echo 'Build or analysis failed!'
+        }
+    }
+}
