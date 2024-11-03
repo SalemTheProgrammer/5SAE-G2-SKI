@@ -14,18 +14,61 @@ pipeline {
                 sh 'mvn clean compile'
             }
         }
-        
-    stage('SonarQube') {
+
+
+
+stage('Run Tests') { // Nouveau stage pour exécuter les tests
+    steps {
+        sh 'mvn -Dtest=InstructorServicesImplTest test' // Exécute spécifiquement le test InstructorServicesImplTest
+    }
+}
+
+  stage('SonarQube') {
             steps {
              sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonarsonar1* -Dmaven.test.skip=true';
            }
        }
+        
 
       stage('Nexus') {
             steps {
              sh 'mvn deploy -Dmaven.test.skip=true';
            }
        }
+
+
+
+
+
+stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker Image for the application"
+                sh 'docker build -t gestion-station-ski:1.0 . '
+
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                echo "Pushing Docker Image to Docker Hub"
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'docker tag gestion-station-ski:1.0 $DOCKER_USERNAME/gestion-station-ski:1.0'
+                    sh 'docker push $DOCKER_USERNAME/gestion-station-ski:1.0'
+                }
+            }
+        }
+
+
+
+
+
            
 
     }
