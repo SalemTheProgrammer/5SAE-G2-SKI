@@ -75,6 +75,7 @@ stage('Deploy with Docker Compose') {
         echo "Deploying with Docker Compose"
         sh 'docker-compose up -d --build'
     }
+}
 
 
 
