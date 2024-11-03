@@ -30,9 +30,9 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
     }
 
     @Override
-    public Registration assignRegistrationToCourse(Long numRegistration, Long numCourse) {
+    public Registration assignRegistrationToCourse(Long numRegistration, Long idCourse) {
         Registration registration = registrationRepository.findById(numRegistration).orElse(null);
-        Course course = courseRepository.findById(numCourse).orElse(null);
+        Course course = courseRepository.findById(idCourse).orElse(null);
         registration.setCourse(course);
         return registrationRepository.save(registration);
     }
@@ -47,7 +47,7 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
             return null;
         }
 
-        if(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(registration.getNumWeek(), skier.getNumSkier(), course.getNumCourse()) >=1){
+        if(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(registration.getNumWeek(), skier.getNumSkier(), course.getIdCourse()) >=1){
             log.info("Sorry, you're already register to this course of the week :" + registration.getNumWeek());
             return null;
         }

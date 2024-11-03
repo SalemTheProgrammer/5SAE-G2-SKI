@@ -18,8 +18,8 @@ public interface IRegistrationRepository extends CrudRepository<Registration, Lo
     List<Integer> numWeeksCourseOfInstructorBySupport(@Param("idIns") Long numInstructor, @Param("support") Support support);
 
     @Query("select count(distinct r) from Registration r " +
-            "where r.numWeek = ?1 and r.skier.numSkier = ?2 and r.course.numCourse = ?3")
-    long countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(int numWeek, Long numSkier, Long numCourse);
+            "where r.numWeek = ?1 and r.skier.numSkier = ?2 and r.course.idCourse = ?3")
+    long countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(int numWeek, Long numSkier, Long idCourse);
 
   //  long countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(int numWeek, Long numSkier, Long numCourse);
 

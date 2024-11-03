@@ -29,5 +29,8 @@ public class Subscription implements Serializable {
 	Float price;
 //	@Enumerated(EnumType.STRING)
 	TypeSubscription typeSub;
+	@ManyToOne
+	@JoinColumn(name = "numCourse")
+	private Course course;
 
 }

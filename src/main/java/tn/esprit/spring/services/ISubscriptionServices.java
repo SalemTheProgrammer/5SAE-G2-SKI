@@ -9,9 +9,11 @@ import tn.esprit.spring.entities.TypeSubscription;
 
 public interface ISubscriptionServices {
 
-	Subscription addSubscription(Subscription subscription);
+/*	Subscription addSubscription(Subscription subscription);
+	 Float showMonthlyRecurringRevenue(TypeSubscription typeSubscription) ;
 
-	Subscription updateSubscription(Subscription subscription);
+
+		Subscription updateSubscription(Subscription subscription);
 
 	Subscription retrieveSubscriptionById(Long numSubscription);
 
@@ -19,5 +21,5 @@ public interface ISubscriptionServices {
 
 	List<Subscription> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate);
 
-	void retrieveSubscriptions();
+	void retrieveSubscriptions();*/
 }

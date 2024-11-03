@@ -24,7 +24,7 @@ import lombok.experimental.FieldDefaults;
 @Entity
 public class Instructor implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long numInstructor;
 	String firstName;
 	String lastName;
