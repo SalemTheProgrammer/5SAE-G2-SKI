@@ -63,6 +63,10 @@ stage('Login to Docker Hub') {
                     sh 'docker push $DOCKER_USERNAME/gestion-station-ski:1.0'
                 }
             }
+
+
+
+
         }
 
 
