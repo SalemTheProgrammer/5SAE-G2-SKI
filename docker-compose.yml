@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    image: gestion-station-ski:1.0   # Nom de l'image Docker
+    build:
+      context: .                      # Contexte de construction
+      dockerfile: Dockerfile           # Nom du Dockerfile si différent
+    ports:
+      - "8089:8089"                    # Redirection des ports
+    environment:
+      MYSQL_HOST: db                  # Nom du service MySQL
+      MYSQL_DATABASE: stationSki       # Base de données à utiliser
+      MYSQL_USER: root                 # Utilisateur MySQL
+      MYSQL_PASSWORD: 4159467bc9653025c7169a419a06d1c0331767a74fec36a2149fdc417c8b71f1  # Mot de passe pour l'utilisateur root
+    depends_on:
+      - db                            # Assure que le service db est prêt avant le démarrage de l'application
+
+  db:
+    image: mysql:5.7                  # Image de MySQL
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD:  4159467bc9653025c7169a419a06d1c0331767a74fec36a2149fdc417c8b71f1 # Mot de passe pour l'utilisateur root
+      MYSQL_DATABASE: stationSki       # Base de données à créer
+    ports:
+      - "3306:3306"                    # Redirection des ports pour MySQL
