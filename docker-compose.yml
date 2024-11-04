@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  my-application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      # Set any environment variables if needed, e.g., database URL or credentials
+      - SPRING_PROFILES_ACTIVE=production
+    volumes:
+      - ./logs:/app/logs # Example: Mounting a volume for logs if needed
+    restart: always # To ensure the container restarts if it crashes
