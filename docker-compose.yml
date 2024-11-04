@@ -9,9 +9,9 @@ services:
       - "8089:8089"
     environment:
       - SPRING_PROFILES_ACTIVE=production
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/your_database_name
-      - SPRING_DATASOURCE_USERNAME=your_username
-      - SPRING_DATASOURCE_PASSWORD=your_password
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/gestionski
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
     volumes:
       - ./logs:/app/logs
     restart: always
@@ -21,10 +21,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: your_root_password
-      MYSQL_DATABASE: your_database_name
-      MYSQL_USER: your_username
-      MYSQL_PASSWORD: your_password
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: gestionski
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
     volumes:
       - mysql_data:/var/lib/mysql
     restart: always
