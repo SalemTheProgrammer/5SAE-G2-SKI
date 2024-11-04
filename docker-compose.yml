@@ -23,4 +23,4 @@ services:
       MYSQL_ROOT_PASSWORD: 4d02877178916879696ccb2dfe0c7a738f6f2dee438ddcd95668645be90dd972 # Mot de passe pour l'utilisateur root
       MYSQL_DATABASE: stationSki       # Base de données à créer
     ports:
-      - "3306:3306"                    # Redirection des ports pour MySQL
+      - "3307:3306"                    # Redirection des ports pour MySQL
