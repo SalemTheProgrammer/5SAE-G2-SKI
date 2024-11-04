@@ -18,7 +18,7 @@ pipeline {
         }
         stage('SonarQube') {
             environment {
-                SONAR_TOKEN = credentials('sonar-token') // Assurez-vous que cet ID correspond à vos credentials SonarQube
+                SONAR_TOKEN = credentials('sonar-token') // Use Jenkins credentials for secure handling
             }
             steps {
                 sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN -Dmaven.test.skip=true'
