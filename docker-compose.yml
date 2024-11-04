@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-     image: ${DOCKER_USERNAME}/gestion-station-ski:1.0  # Utilise l'image Docker depuis Docker Hub
+    image: ${DOCKER_USERNAME}/gestion-station-ski:1.0  # Utilise l'image Docker depuis Docker Hub
     ports:
       - "8089:8089"                    # Redirection des ports
     environment:
@@ -20,4 +20,4 @@ services:
       MYSQL_ROOT_PASSWORD:  b67962940a7d06217c91ff625494de9e2d83cdfce99c4b5964ccfcaa4f4476c2 # Mot de passe pour l'utilisateur root
       MYSQL_DATABASE: stationSki       # Base de données à créer
     ports:
-      - "3306:3306"                    # Redirection des ports pour MySQL
+      - "3306:3306"                    # Redirection des ports pour MySQL 
