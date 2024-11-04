@@ -25,8 +25,8 @@ public class PisteServicesImpl implements  IPisteServices{
     public Piste addPiste(Piste piste) {
         logger.info("Attempting to add new piste with name: {}", piste.getNamePiste());
         try {
-            Piste savedPiste = pisteRepository.save(piste);
-            logger.info("Piste added successfully with ID: {}", savedPiste.getNumPiste());
+           // Piste savedPiste = pisteRepository.save(piste);
+          //  logger.info("Piste added successfully with ID: {}", savedPiste.getNumPiste());
         return pisteRepository.save(piste);
         } catch (Exception e) {
             logger.error("Error adding piste: {}", e.getMessage(), e);
