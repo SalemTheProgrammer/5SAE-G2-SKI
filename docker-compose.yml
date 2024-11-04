@@ -21,7 +21,7 @@ services:
     image: mysql:5.7                  # Image de MySQL
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: votremotdepasseici
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes" 
       MYSQL_DATABASE: stationSki       # Base de données à créer
     ports:
       - "3306:3306"                    # Redirection des ports pour MySQL
