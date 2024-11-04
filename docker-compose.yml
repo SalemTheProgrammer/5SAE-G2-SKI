@@ -15,8 +15,7 @@ services:
   app-spring:
     depends_on:
       - mysqldb
-    #build: ./gestion-station-ski
-   image: gestion-station-ski:1.0
+    image: gestion-station-ski:1.0
     restart: on-failure
     ports:
       - "8089:8089"
@@ -29,4 +28,5 @@ services:
     stdin_open: true
     tty: true
 
- 
+volumes:
+  db:
