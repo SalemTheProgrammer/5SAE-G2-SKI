@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  angular-app:
+    build:
+      context: .  # The current directory
+      dockerfile: Dockerfile  # The Dockerfile to use
+    ports:
+      - "4200:80"  # Map port 80 in the container to port 4200 on the host
+    volumes:
+      - ./dist:/usr/share/nginx/html  # Mount the dist folder (for development)
+    restart: always  # Restart the container automatically if it stops
