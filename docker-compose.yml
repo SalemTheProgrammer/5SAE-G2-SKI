@@ -15,7 +15,7 @@ services:
   app-spring:
     depends_on:
       - mysqldb
-    image: gestion-ski:1.0
+    image: gestion-ski:latest
     restart: on-failure
     ports:
       - "8089:8089"
