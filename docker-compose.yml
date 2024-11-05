@@ -1,15 +1,32 @@
-version: '2.2'
+version: '3.3'
 
 services:
-  my-application:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  mysqldb:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stationSki
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+
+  app-spring:
+    depends_on:
+      - mysqldb
+    image: gestion-ski:latest
+    restart: on-failure
     ports:
       - "8089:8089"
     environment:
-      # Set any environment variables if needed, e.g., database URL or credentials
-      - SPRING_PROFILES_ACTIVE=production
-    volumes:
-      - ./logs:/app/logs # Example: Mounting a volume for logs if needed
-    restart: always # To ensure the container restarts if it crashes
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "jdbc:mysql://mysqldb:3306/stationSki?createDatabaseIfNotExist=true",
+        "spring.datasource.username": "root",
+        "spring.datasource.password": "root",
+        "spring.jpa.hibernate.ddl-auto": "update"}'
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:
