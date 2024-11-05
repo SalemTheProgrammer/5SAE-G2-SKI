@@ -8,10 +8,30 @@ services:
     ports:
       - "8089:8089"
     environment:
-      # Set any environment variables if needed, e.g., database URL or credentials
       - SPRING_PROFILES_ACTIVE=production
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/stationSki
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     volumes:
-      - ./logs:/app/logs # Example: Mounting a volume for logs if needed
-    restart: always # To ensure the container restarts if it crashes
+      - ./logs:/app/logs # Mounting a volume for logs if needed
+    depends_on:
+      - mysqldb
+    restart: always
+
+  mysqldb:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: stationSki
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+volumes:
+  mysql_data:
 
     
