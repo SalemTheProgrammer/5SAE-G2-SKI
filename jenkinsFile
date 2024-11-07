@@ -2,40 +2,120 @@ pipeline {
     agent any
 
     stages {
-        stage('GIT') {
+        stage('Checkout Code') {
             steps {
-                git branch: 'INESRDISSI-5SAE7-G2',
-                    url: 'https://github.com/SalemTheProgrammer/5SAE-G2-SKI.git'
-            }
-        }
-        
-        stage('Compile Stage') {
-            steps {
-                sh 'mvn clean compile'
+                git branch: 'RAHMOUNIHAMZA-5SAE7-G2',
+                    url: 'https://github.com/SalemTheProgrammer/5SAE-G2-SKI.git',
+                    credentialsId: 'jenkins-example-github-pat'
             }
         }
 
+        stage('MVN CLEAN') {
+            steps {
+                echo "Running Maven Clean"
+                sh 'mvn clean'
+            }
+        }
 
-
-stage('Run Tests') { // Nouveau stage pour exécuter les tests
+        stage('MVN COMPILE') {
+            steps {
+                echo "Running Maven Compile"
+                sh 'mvn compile'
+            }
+        }
+          stage('Run Tests') { // Nouveau stage pour exécuter les tests
     steps {
-        sh 'mvn -Dtest=InstructorServicesImplTest test' // Exécute spécifiquement le test InstructorServicesImplTest
+        sh 'mvn -Dtest=RegistrationServicesImplTest test' // Exécute spécifiquement le test InstructorServicesImplTest
+              }
+        }
+
+
+
+      stage('SonarQube Analysis') {
+            steps {
+                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                    sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                }
+            }
+        }
+
+        stage('Deploy to Nexus') {
+            steps {
+                echo "Deploying to Nexus"
+                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASSWORD')]) {
+                    sh 'mvn deploy -Dmaven.test.skip=true -Dusername=$NEXUS_USER -Dpassword=$NEXUS_PASSWORD'
+                }
+            }
+        }
+               stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker Image for the application"
+                sh 'docker build -t gestion-station-ski:1.0 . '
+
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                echo "Pushing Docker Image to Docker Hub"
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'docker tag gestion-station-ski:1.0 $DOCKER_USERNAME/gestion-station-ski:1.0'
+                    sh 'docker push $DOCKER_USERNAME/gestion-station-ski:1.0'
+                }
+            }
+        }
+      /*   stage('Deploy with Docker Compose') {
+            steps {
+                echo "Deploying with Docker Compose"
+                    sh 'docker-compose up -d --build'
+                }
+
+        }*/
+        stage('Deploy with Docker Compose') {
+    steps {
+        echo "Stopping and removing existing containers if any"
+        sh 'docker-compose down --remove-orphans'
+
+        echo "Deploying with Docker Compose"
+        sh 'docker-compose up -d --build'
     }
 }
 
-  stage('SonarQube') {
-            steps {
-             sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonarsonar1* -Dmaven.test.skip=true';
-           }
-       }
-        
 
-      stage('Nexus') {
-            steps {
-             sh 'mvn deploy -Dmaven.test.skip=true';
-           }
-       }
-           
 
+
+
+    }
+
+   post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs()
+        }
+        success {
+            echo "Sending success email..."
+            mail (
+                to: 'rahmouni.hamza@esprit.tn',
+                subject: "Success",
+                body: "The build was successful."
+            )
+            echo "Success email sent."
+        }
+        failure {
+            echo "Sending failure email..."
+            mail (
+                to: 'rahmouni.hamza@esprit.tn',
+                subject: "Fail",
+                body: "Unfortunately, the build has failed."
+            )
+            echo "Failure email sent."
+        }
     }
 }
