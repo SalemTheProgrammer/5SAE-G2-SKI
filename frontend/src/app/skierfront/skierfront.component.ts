@@ -3,8 +3,6 @@ import { SkierService } from '../skierservice.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-
-
 @Component({
   selector: 'app-skier',
   templateUrl: './skierfront.component.html',
@@ -14,7 +12,22 @@ import { CommonModule } from '@angular/common';
 })
 export class SkierComponent implements OnInit {
   skiers: any[] = [];
-newSkier: any;
+  
+  // Initialize newSkier with required structure
+  newSkier: any = {
+    numSkier: null,
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    city: '',
+    subscription: {
+      numSub: null,
+      startDate: '',
+      endDate: '',
+      price: null,
+      typeSub: ''
+    }
+  };
 
   constructor(private skierService: SkierService) {}
 
@@ -31,8 +44,28 @@ newSkier: any;
 
   addSkier(skier: any): void {
     this.skierService.addSkier(skier).subscribe(
-      newSkier => this.skiers.push(newSkier),
-      error => console.error('Erreur lors de l\'ajout du skieur', error)
+      newSkier => {
+        this.skiers.push(newSkier);
+        this.resetNewSkier(); // Reset form after adding
+      },
+      error => console.error("Erreur lors de l'ajout du skieur", error)
     );
+  }
+
+  resetNewSkier(): void {
+    this.newSkier = {
+      numSkier: null,
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      city: '',
+      subscription: {
+        numSub: null,
+        startDate: '',
+        endDate: '',
+        price: null,
+        typeSub: ''
+      }
+    };
   }
 }

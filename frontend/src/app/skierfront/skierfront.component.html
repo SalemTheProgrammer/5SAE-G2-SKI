@@ -1,48 +1,89 @@
-<div class="container">
-    <h1>Gestion des Skieurs</h1>
-  
+<div class="container skier-container">
+    <h1 class="title">🏔️ Gestion des Skieurs</h1>
+
     <!-- Formulaire pour ajouter un skieur -->
-    <div class="form-group">
-      <h3>Ajouter un nouveau skieur</h3>
-      <form (submit)="addSkier(newSkier)">
-        <label for="name">Nom :</label>
-        <input id="name" [(ngModel)]="newSkier.name" name="name" class="form-control" placeholder="Nom du skieur" required />
-  
-        <label for="age">Âge :</label>
-        <input id="age" type="number" [(ngModel)]="newSkier.age" name="age" class="form-control" placeholder="Âge du skieur" required />
-  
-        <label for="subscription">Type d'abonnement :</label>
-        <select id="subscription" [(ngModel)]="newSkier.subscriptionType" name="subscriptionType" class="form-control">
-          <option value="BASIC">BASIC</option>
-          <option value="PREMIUM">PREMIUM</option>
-          <option value="VIP">VIP</option>
-        </select>
-  
-        <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
-      </form>
+    <div class="card form-card">
+        <div class="card-header">
+            <h3>Ajouter un nouveau skieur</h3>
+        </div>
+        <div class="card-body">
+            <form (submit)="addSkier(newSkier)">
+                <div class="form-group">
+                    <label for="firstName">Prénom :</label>
+                    <input id="firstName" [(ngModel)]="newSkier.firstName" name="firstName" class="form-control" placeholder="Prénom du skieur" required />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Nom :</label>
+                    <input id="lastName" [(ngModel)]="newSkier.lastName" name="lastName" class="form-control" placeholder="Nom du skieur" required />
+                </div>
+                <div class="form-group">
+                    <label for="dateOfBirth">Date de naissance :</label>
+                    <input id="dateOfBirth" type="date" [(ngModel)]="newSkier.dateOfBirth" name="dateOfBirth" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="city">Ville :</label>
+                    <input id="city" [(ngModel)]="newSkier.city" name="city" class="form-control" placeholder="Ville" required />
+                </div>
+                <!-- Détails de l'abonnement -->
+                <div class="form-group">
+                    <label for="typeSub">Type d'abonnement :</label>
+                    <select id="typeSub" [(ngModel)]="newSkier.subscription.typeSub" name="typeSub" class="form-control">
+                        <option value="ANNUAL">ANNUAL</option>
+                        <option value="MONTHLY">MONTHLY</option>
+                        <option value="WEEKLY">WEEKLY</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Date de début d'abonnement :</label>
+                    <input id="startDate" type="date" [(ngModel)]="newSkier.subscription.startDate" name="startDate" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="endDate">Date de fin d'abonnement :</label>
+                    <input id="endDate" type="date" [(ngModel)]="newSkier.subscription.endDate" name="endDate" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="price">Prix de l'abonnement :</label>
+                    <input id="price" type="number" [(ngModel)]="newSkier.subscription.price" name="price" class="form-control" placeholder="Prix de l'abonnement" required />
+                </div>
+                <button type="submit" class="btn-submit">Ajouter</button>
+            </form>
+        </div>
     </div>
-  
+
     <!-- Liste des skieurs -->
-    <div class="mt-5">
-      <h3>Liste des skieurs</h3>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Âge</th>
-            <th>Type d'abonnement</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let skier of skiers">
-            <td>{{ skier.id }}</td>
-            <td>{{ skier.name }}</td>
-            <td>{{ skier.age }}</td>
-            <td>{{ skier.subscriptionType }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card skier-list">
+        <div class="card-header">
+            <h3>Liste des skieurs</h3>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Date de naissance</th>
+                        <th>Ville</th>
+                        <th>Type d'abonnement</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let skier of skiers">
+                        <td>{{ skier.numSkier }}</td>
+                        <td>{{ skier.firstName }}</td>
+                        <td>{{ skier.lastName }}</td>
+                        <td>{{ skier.dateOfBirth }}</td>
+                        <td>{{ skier.city }}</td>
+                        <td>{{ skier.subscription?.typeSub }}</td>
+                        <td>{{ skier.subscription?.startDate }}</td>
+                        <td>{{ skier.subscription?.endDate }}</td>
+                        <td>{{ skier.subscription?.price }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
-  
+</div>

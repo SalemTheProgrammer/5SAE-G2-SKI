@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SkierService {
-  private apiUrl = 'http://localhost:8089/api/skier'; // Assurez-vous que cette URL est correcte
+  private apiUrl = 'http://192.168.33.10:8089/api/skier'; // Assurez-vous que cette URL est correcte
 
   constructor(private http: HttpClient) {}
 
