@@ -15,9 +15,21 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Run JUnit Test') {
             steps {
-                sh 'mvn -Dtest=InstructorServicesImplTest test'
+                sh 'mvn -Dtest=InstructorServicesJUnitTest test'
+            }
+        }
+
+  stage('Run Mockito Tests') {
+            steps {
+                sh 'mvn -Dtest=InstructorServicesMockitoTest test'
+            }
+        }
+
+  stage('Run integration Tests') {
+            steps {
+                sh 'mvn -Dtest=InstructorServicesIntegrationTest test'
             }
         }
 
