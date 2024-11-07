@@ -20,7 +20,7 @@ services:
     image: mysql:5.7                  # Image de MySQL
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD:  root # Mot de passe pour l'utilisateur root
+      MYSQL_ROOT_PASSWORD: root # Mot de passe pour l'utilisateur root
       MYSQL_DATABASE: stationSki       # Base de données à créer
     ports:
       - "3307:3306"                    # Redirection des ports pour MySQL
