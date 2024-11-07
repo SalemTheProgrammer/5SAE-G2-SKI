@@ -8,39 +8,32 @@ pipeline {
                     url: 'https://github.com/SalemTheProgrammer/5SAE-G2-SKI.git'
             }
         }
-        
+
         stage('Compile Stage') {
             steps {
                 sh 'mvn clean compile'
             }
         }
 
-
-
-stage('Run Tests') { // Nouveau stage pour exécuter les tests
-    steps {
-        sh 'mvn -Dtest=InstructorServicesImplTest test' // Exécute spécifiquement le test InstructorServicesImplTest
-    }
-}
-
-  stage('SonarQube') {
+        stage('Run Tests') {
             steps {
-             sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonarsonar1* -Dmaven.test.skip=true';
-           }
-       }
-        
+                sh 'mvn -Dtest=InstructorServicesImplTest test'
+            }
+        }
 
-      stage('Nexus') {
+        stage('SonarQube') {
             steps {
-             sh 'mvn deploy -Dmaven.test.skip=true';
-           }
-       }
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonarsonar1* -Dmaven.test.skip=true'
+            }
+        }
 
+        stage('Nexus') {
+            steps {
+                sh 'mvn deploy -Dmaven.test.skip=true'
+            }
+        }
 
-
-
-
-stage('Login to Docker Hub') {
+        stage('Login to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
@@ -63,17 +56,40 @@ stage('Login to Docker Hub') {
                     sh 'docker push $DOCKER_USERNAME/gestion-station-ski:1.0'
                 }
             }
-
-
-
-
         }
 
 
-
-
-
-           
-
+        stage('Deploy with Docker Compose') {
+            steps {
+                echo "Deploying with Docker Compose"
+                sh 'docker compose up -d --build'
+            }
+        }
     }
+
+post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs()
+        }
+        success {
+            echo "Sending success email..."
+            mail (
+                to: 'inesrdissi60@gmail.com',
+                subject: "Success",
+                body: "The build was successful."
+            )
+            echo "Success email sent."
+        }
+        failure {
+            echo "Sending failure email..."
+            mail (
+                to: 'inesrdissi60@gmail.com',
+                subject: "Fail",
+                body: "Unfortunately, the build has failed."
+            )
+            echo "Failure email sent."
+        }
+    }
+
 }
