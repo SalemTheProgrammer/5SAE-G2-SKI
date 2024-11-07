@@ -67,3 +67,27 @@ pipeline {
         }
     }
 }
+post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs()
+        }
+        success {
+            echo "Sending success email..."
+            mail (
+                to: 'inesrdissi60@gmail.com',
+                subject: "Success",
+                body: "The build was successful."
+            )
+            echo "Success email sent."
+        }
+        failure {
+            echo "Sending failure email..."
+            mail (
+                to: 'inesrdissi60@gmail.com',
+                subject: "Fail",
+                body: "Unfortunately, the build has failed."
+            )
+            echo "Failure email sent."
+        }
+    }
