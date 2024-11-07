@@ -8,7 +8,7 @@ pipeline {
                     url: 'https://github.com/SalemTheProgrammer/5SAE-G2-SKI.git'
             }
         }
-
+        
         stage('Compile Stage') {
             steps {
                 sh 'mvn clean compile'
@@ -93,3 +93,4 @@ post {
     }
 
 }
+
