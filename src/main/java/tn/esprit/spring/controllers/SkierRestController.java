@@ -9,7 +9,7 @@ import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.services.ISkierServices;
 
 import java.util.List;
-
+@CrossOrigin (origins = "*")
 @Tag(name = "\uD83C\uDFC2 Skier Management")
 @RestController
 @RequestMapping("/skier")
