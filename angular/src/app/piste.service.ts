@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class PisteService {
 
-  private apiUrl = 'http://localhost:8089/api/piste'; 
+  private apiUrl = 'http://192.168.33.10:8089/api/piste'; 
   constructor(private http: HttpClient) {}
 
   addPiste(piste: any): Observable<any> {
@@ -27,6 +27,6 @@ export class PisteService {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
 
-
+ 
 
 }
