@@ -26,15 +26,6 @@ public class Config implements WebMvcConfigurer {
         };
     }
 
-    /*
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // Allow all paths
-                .allowedOrigins("http://192.168.33.10:4200") // Allow Angular frontend
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allowed HTTP methods
-                .allowedHeaders("*") // Allow all headers
-                .allowCredentials(true); // Allow credentials like cookies
-    }
-*/
+
     }
 
