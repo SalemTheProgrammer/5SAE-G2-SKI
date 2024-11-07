@@ -1,29 +1,29 @@
-# Stage 1: Build the Angular application
+# Étape 1 : Utiliser une image Node.js pour construire l'application Angular
 FROM node:20 AS build
 
-# Set the working directory inside the container
+# Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies
+# Copier les fichiers de configuration npm pour installer les dépendances
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Installer les dépendances, y compris Angular CLI
+RUN npm install -g @angular/cli && npm install
 
-# Copy the Angular project files into the container
+# Copier le reste du code source
 COPY . .
 
-# Build the Angular project for production
-RUN npm run build -- --configuration production
+# Construire l'application Angular en mode production
+RUN ng build --configuration production
 
-# Stage 2: Serve the Angular application with Apache
-FROM httpd:alpine
+# Étape 2 : Utiliser une image Nginx pour servir l'application
+FROM nginx:alpine
 
-# Copy the built Angular files from the previous stage to Apache's HTML directory
-COPY --from=build /app/dist /usr/local/apache2/htdocs/
+# Copier les fichiers construits dans le répertoire de Nginx
+COPY --from=build /app/dist/ /usr/share/nginx/html
 
-# Expose port 80 to the host
+# Exposer le port 80
 EXPOSE 80
 
-# Start Apache
-CMD ["httpd-foreground"]
+# Démarrer Nginx en mode premier plan
+CMD ["nginx", "-g", "daemon off;"]
