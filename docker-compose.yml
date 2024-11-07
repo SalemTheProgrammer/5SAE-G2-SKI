@@ -27,6 +27,15 @@ services:
         "spring.jpa.hibernate.ddl-auto": "update"}'
     stdin_open: true
     tty: true
+  app-angular:
+    depends_on:
+      - app-spring
+    build:
+      context: C:\Users\admin\Documents\SKIProject\frontendDevops\frontendski  # Replace with the path to your Angular project
+      dockerfile: DockerfileFront  # Rename Dockerfile for the frontend to distinguish it
+    ports:
+      - "4200:4200"
+    restart: on-failure
 
 volumes:
   db:
