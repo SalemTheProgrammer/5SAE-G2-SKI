@@ -20,7 +20,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copy the built files from the previous stage to Nginx's HTML directory
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
+COPY --from=build /app/dist/frontned-gestion-de-ski /usr/share/nginx/html
 
 # Expose port 80 to the host
 EXPOSE 80
