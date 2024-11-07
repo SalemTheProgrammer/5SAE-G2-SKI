@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class Config implements WebMvcConfigurer {
-    /*
+
     private static final String GET = "GET";
         private static final String POST = "POST";
         private static final String PUT = "PUT";
@@ -17,15 +17,16 @@ public class Config implements WebMvcConfigurer {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/*")
+                registry.addMapping("/**")
                         .allowedMethods(GET, POST, PUT, DELETE)
-                        .allowedHeaders("")
+                        .allowedHeaders("*")
                         .allowedOriginPatterns("*")
                         .allowCredentials(true);
             }
         };
     }
-    */
+
+    /*
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Allow all paths
@@ -34,6 +35,6 @@ public class Config implements WebMvcConfigurer {
                 .allowedHeaders("*") // Allow all headers
                 .allowCredentials(true); // Allow credentials like cookies
     }
-
+*/
     }
 
