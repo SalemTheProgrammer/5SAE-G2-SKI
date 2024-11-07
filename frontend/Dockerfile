@@ -14,8 +14,8 @@ RUN npm install
 # Copy the Angular project files into the container
 COPY . .
 
-# Build the Angular project for production
-RUN npm run build --configuration production
+# Build the Angular project for production (replace <project-name> with your actual project name)
+RUN npm run build -- --project=frontned-gestion-de-ski --configuration production
 
 # Stage 2: Serve the Angular application with Nginx
 FROM nginx:alpine
@@ -25,10 +25,6 @@ RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the built Angular files from the previous stage to Nginx's HTML directory
 COPY --from=build /app/dist/frontned-gestion-de-ski /usr/share/nginx/html
-
-# Copy custom Nginx configuration file (optional)
-# Uncomment the line below if you have a custom nginx.conf in your Angular project root
-# COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80 to the host
 EXPOSE 80
