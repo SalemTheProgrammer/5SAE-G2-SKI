@@ -86,3 +86,4 @@ class InstructorServicesIntegrationTest {
         assertTrue(instructorWithCourse.getCourses().size() > 0);
     }
 }
+
