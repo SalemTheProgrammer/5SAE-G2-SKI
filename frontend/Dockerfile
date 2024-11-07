@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 4200
 
 # Run the Angular application in development mode
-CMD ["npm", "run", "start", "--", "--host=0.0.0.0"]
+CMD ["npm", "run", "start", "--", "--host=192.168.33.10"]
