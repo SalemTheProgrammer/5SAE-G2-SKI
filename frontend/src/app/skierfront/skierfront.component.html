@@ -1,1 +1,48 @@
-<p>skierfront works!</p>
+<div class="container">
+    <h1>Gestion des Skieurs</h1>
+  
+    <!-- Formulaire pour ajouter un skieur -->
+    <div class="form-group">
+      <h3>Ajouter un nouveau skieur</h3>
+      <form (submit)="addSkier(newSkier)">
+        <label for="name">Nom :</label>
+        <input id="name" [(ngModel)]="newSkier.name" name="name" class="form-control" placeholder="Nom du skieur" required />
+  
+        <label for="age">Âge :</label>
+        <input id="age" type="number" [(ngModel)]="newSkier.age" name="age" class="form-control" placeholder="Âge du skieur" required />
+  
+        <label for="subscription">Type d'abonnement :</label>
+        <select id="subscription" [(ngModel)]="newSkier.subscriptionType" name="subscriptionType" class="form-control">
+          <option value="BASIC">BASIC</option>
+          <option value="PREMIUM">PREMIUM</option>
+          <option value="VIP">VIP</option>
+        </select>
+  
+        <button type="submit" class="btn btn-primary mt-3">Ajouter</button>
+      </form>
+    </div>
+  
+    <!-- Liste des skieurs -->
+    <div class="mt-5">
+      <h3>Liste des skieurs</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Âge</th>
+            <th>Type d'abonnement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let skier of skiers">
+            <td>{{ skier.id }}</td>
+            <td>{{ skier.name }}</td>
+            <td>{{ skier.age }}</td>
+            <td>{{ skier.subscriptionType }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

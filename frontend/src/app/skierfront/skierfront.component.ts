@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { SkierService } from '../skierservice.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-skier',
   templateUrl: './skierfront.component.html',
-  styleUrls: ['./skierfront.component.css']
+  styleUrls: ['./skierfront.component.css'],
+  standalone:true,
+  imports:[FormsModule,CommonModule]
 })
 export class SkierComponent implements OnInit {
   skiers: any[] = [];
+newSkier: any;
 
   constructor(private skierService: SkierService) {}
 
