@@ -35,6 +35,11 @@ public class PisteServicesImpl implements  IPisteServices{
     }
 
     @Override
+    public Piste updatePiste(Piste piste) {
+        return null;
+    }
+
+    @Override
     public void removePiste(Long numPiste) {
         logger.info("Attempting to remove piste with ID: {}", numPiste);
         if (pisteRepository.existsById(numPiste)) {

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.services.IPisteServices;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/piste")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class PisteRestController {
 
     private final IPisteServices pisteServices;
@@ -21,6 +23,12 @@ public class PisteRestController {
     @PostMapping("/add")
     public Piste addPiste(@RequestBody Piste piste){
         return  pisteServices.addPiste(piste);
+    }
+
+    @Operation(description = "Update Course ")
+    @PutMapping("/update")
+    public Piste updatePiste(@RequestBody Piste piste){
+        return  pisteServices.updatePiste(piste);
     }
     @Operation(description = "Retrieve all Pistes")
     @GetMapping("/all")

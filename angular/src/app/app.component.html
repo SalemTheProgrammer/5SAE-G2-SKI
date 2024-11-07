@@ -1,0 +1,136 @@
+<div class="piste-container">
+  <!-- Piste List -->
+  <h2>Pistes</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Color</th>
+        <th>Length</th>
+        <th>Slope</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let piste of pistes">
+        <td>{{ piste.numPiste }}</td>
+        <td>{{ piste.namePiste }}</td>
+        <td>{{ piste.color }}</td>
+        <td>{{ piste.length }}</td>
+        <td>{{ piste.slope }}</td>
+        <td>
+          <button class="btn btn-warning" (click)="editPiste(piste)">Edit</button>
+          <button class="btn btn-danger" (click)="deletePiste(piste.numPiste)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Add New Piste Form (only visible if not editing) -->
+  <div *ngIf="!editMode">
+    <h3>Add New Piste</h3>
+    <form (ngSubmit)="addPiste()" #pisteForm="ngForm">
+      <div class="form-group">
+        <label for="namePiste">Piste Name</label>
+        <input
+          type="text"
+          id="namePiste"
+          [(ngModel)]="newPiste.namePiste"
+          name="namePiste"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="color">Color</label>
+        <select
+          id="color"
+          [(ngModel)]="newPiste.color"
+          name="color"
+          class="form-control"
+          required
+        >
+          <option *ngFor="let color of colors" [value]="color">{{ color }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="length">Length</label>
+        <input
+          type="number"
+          id="length"
+          [(ngModel)]="newPiste.length"
+          name="length"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="slope">Slope</label>
+        <input
+          type="number"
+          id="slope"
+          [(ngModel)]="newPiste.slope"
+          name="slope"
+          class="form-control"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!pisteForm.form.valid">Add Piste</button>
+    </form>
+  </div>
+
+  <!-- Edit Piste Form (only visible in edit mode) -->
+  <div *ngIf="editMode">
+    <h3>Edit Piste</h3>
+    <form (ngSubmit)="updatePiste()" #editPisteForm="ngForm">
+      <div class="form-group">
+        <label for="namePisteEdit">Piste Name</label>
+        <input
+          type="text"
+          id="namePisteEdit"
+          [(ngModel)]="pisteToEdit.namePiste"
+          name="namePisteEdit"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="colorEdit">Color</label>
+        <select
+          id="colorEdit"
+          [(ngModel)]="pisteToEdit.color"
+          name="colorEdit"
+          class="form-control"
+          required
+        >
+          <option *ngFor="let color of colors" [value]="color">{{ color }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="lengthEdit">Length</label>
+        <input
+          type="number"
+          id="lengthEdit"
+          [(ngModel)]="pisteToEdit.length"
+          name="lengthEdit"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="slopeEdit">Slope</label>
+        <input
+          type="number"
+          id="slopeEdit"
+          [(ngModel)]="pisteToEdit.slope"
+          name="slopeEdit"
+          class="form-control"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!editPisteForm.form.valid">Update Piste</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+</div>
