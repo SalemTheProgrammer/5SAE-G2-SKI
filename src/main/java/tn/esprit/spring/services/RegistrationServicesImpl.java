@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class RegistrationServicesImpl implements  IRegistrationServices{
 
-    private IRegistrationRepository registrationRepository;
+  /*  private IRegistrationRepository registrationRepository;
     private ISkierRepository skierRepository;
     private ICourseRepository courseRepository;
 
@@ -29,11 +29,11 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
         return registrationRepository.save(registration);
     }
 
-    @Override
+   /* @Override
     public Registration assignRegistrationToCourse(Long numRegistration, Long idCourse) {
         Registration registration = registrationRepository.findById(numRegistration).orElse(null);
         Course course = courseRepository.findById(idCourse).orElse(null);
-        registration.setCourse(course);
+        registration.setCourses(course);
         return registrationRepository.save(registration);
     }
 
@@ -101,6 +101,6 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
     @Override
     public List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support support) {
         return registrationRepository.numWeeksCourseOfInstructorBySupport(numInstructor, support);
-    }
+    }*/
 
 }

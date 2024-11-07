@@ -23,4 +23,11 @@ public interface ICourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByTypeCourse(TypeCourse typeCourse);
     List<Course> findBySupport(Support support);
 
+
+    // Rechercher par niveau et trier par prix
+    List<Course> findByLevelOrderByPriceAsc(int level);
+
+
+    List<Course> findByTypeCourseAndPriceGreaterThan(String typeCourse, double minPrice);
+
 }

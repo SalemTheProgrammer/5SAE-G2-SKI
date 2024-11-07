@@ -45,7 +45,6 @@ public class CourseServicesImplTest {
         course.setTypeCourse(TypeCourse.COLLECTIVE_ADULT); // Use an actual type from your TypeCourse enum
         course.setSupport(Support.SKI); // Use an actual support from your Support enum
         course.setPrice(100.0f);
-        course.setTimeSlot(5);
     }
 
     @Test

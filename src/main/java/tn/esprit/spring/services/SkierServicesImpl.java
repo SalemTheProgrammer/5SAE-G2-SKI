@@ -45,7 +45,7 @@ public class SkierServicesImpl implements ISkierServices {
         return skierRepository.save(skier);
     }
 
-    @Override
+    /*@Override
     public Skier assignSkierToSubscription(Long numSkier, Long numSubscription) {
         Skier skier = skierRepository.findById(numSkier).orElse(null);
         Subscription subscription = subscriptionRepository.findById(numSubscription).orElse(null);
@@ -53,7 +53,7 @@ public class SkierServicesImpl implements ISkierServices {
         return skierRepository.save(skier);
     }
 
-    @Override
+ /*   @Override
     public Skier addSkierAndAssignToCourse(Skier skier, Long numCourse) {
         Skier savedSkier = skierRepository.save(skier);
         Course course = courseRepository.getById(numCourse);
@@ -64,7 +64,7 @@ public class SkierServicesImpl implements ISkierServices {
             registrationRepository.save(r);
         }
         return savedSkier;
-    }
+    }*/
 
     @Override
     public void removeSkier(Long numSkier) {

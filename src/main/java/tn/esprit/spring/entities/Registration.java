@@ -1,12 +1,10 @@
 package tn.esprit.spring.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
@@ -34,6 +32,14 @@ public class Registration implements Serializable {
 	@ManyToOne
     Skier skier;
 	@JsonIgnore
-	@ManyToOne
-	Course course;
+	@ManyToMany
+	private List<Course> course = new ArrayList<>();  // ou Set<Course> si vous préférez
+
+	public List<Course> getCourse() {
+		return course;
+	}
+
+	public void setCourse(List<Course> course) {
+		this.course = course;
+	}
 }

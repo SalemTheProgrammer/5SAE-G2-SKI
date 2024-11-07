@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SkierRestController {
 
-    private final ISkierServices skierServices;
+   /* private final ISkierServices skierServices;
 
     @Operation(description = "Add Skier")
     @PostMapping("/add")
@@ -64,6 +64,6 @@ public class SkierRestController {
     @GetMapping("/all")
     public List<Skier> getAllSkiers(){
         return skierServices.retrieveAllSkiers();
-    }
+    }*/
 
 }

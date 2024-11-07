@@ -12,10 +12,12 @@ public interface ICourseServices {
     List<Course> deleteAllCourses();
 
      Float calculateTotalRevenue(Long idCourse) ;
-
+    Course assignCourseToUser(Long idCourse, Long numRegistration) ;
     Course  addCourse(Course  course);
-
-    Course updateCourse(Course course);
+     List<Course> findCoursesByLevelSortedByPrice(int level) ;
+  //   List<Course> findCoursesBySupportSortedByTimeSlot(String support) ;
+     List<Course> findCoursesByTypeAndMinPrice(String typeCourse, double minPrice) ;
+        Course updateCourse(Course course);
 
     Course retrieveCourse(Long idCourse);
 

@@ -11,9 +11,9 @@ public interface ISkierServices {
 
 	Skier  addSkier(Skier  skier);
 
-	Skier assignSkierToSubscription(Long numSkier, Long numSubscription);
+	//Skier assignSkierToSubscription(Long numSkier, Long numSubscription);
 
-	Skier addSkierAndAssignToCourse(Skier skier, Long numCourse);
+//	Skier addSkierAndAssignToCourse(Skier skier, Long numCourse);
 
 	void removeSkier (Long numSkier);
 

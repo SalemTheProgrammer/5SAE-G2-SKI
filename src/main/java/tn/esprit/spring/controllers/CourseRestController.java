@@ -21,13 +21,13 @@ public class CourseRestController {
     private final ICourseServices courseServices;
 
     @Operation(description = "Add Course")
-    @PostMapping("/add")
+    @PostMapping("/addCourse")
     public Course addCourse(@RequestBody Course course){
         return  courseServices.addCourse(course);
     }
 
     @Operation(description = "Retrieve all Courses")
-    @GetMapping("/all")
+    @GetMapping("/getall")
     public List<Course> getAllCourses(){
         return courseServices.retrieveAllCourses();
     }
@@ -68,10 +68,36 @@ public class CourseRestController {
         return ResponseEntity.ok("Courses deleted successfully");
     }
 
+    @PostMapping("/assign")
+    public ResponseEntity<String> assignCourseToUser(
+            @RequestParam Long idCourse,
+            @RequestParam Long numRegistration) {
+        // Log pour vérifier l'ID du cours et de l'inscription
+        System.out.println("ID du cours: " + idCourse + ", ID de l'inscription: " + numRegistration);
+
+        courseServices.assignCourseToUser(idCourse, numRegistration);
+        return ResponseEntity.ok("Course assigned to user successfully");
+    }
+
     @GetMapping("/{numCourse}/revenue")
     public ResponseEntity<Float> getTotalRevenue(@PathVariable Long numCourse) {
         Float totalRevenue = courseServices.calculateTotalRevenue(numCourse);
         return ResponseEntity.ok(totalRevenue);
+    }
+
+    @GetMapping("/by-level")
+    public ResponseEntity<List<Course>> getCoursesByLevel(@RequestParam int level) {
+        List<Course> courses = courseServices.findCoursesByLevelSortedByPrice(level);
+        return ResponseEntity.ok(courses);
+    }
+
+    // Endpoint pour rechercher par type de cours avec un prix minimum
+    @GetMapping("/by-type")
+    public ResponseEntity<List<Course>> getCoursesByTypeAndMinPrice(
+            @RequestParam String typeCourse,
+            @RequestParam double minPrice) {
+        List<Course> courses = courseServices.findCoursesByTypeAndMinPrice(typeCourse, minPrice);
+        return ResponseEntity.ok(courses);
     }
 
 }
