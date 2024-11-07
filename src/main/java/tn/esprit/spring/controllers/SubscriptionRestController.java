@@ -16,6 +16,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/subscription")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*") // Allow all origins; replace "*" with specific domain(s) for production
 public class SubscriptionRestController {
 
     private final ISubscriptionServices subscriptionServices;

@@ -1,0 +1,26 @@
+<div class="subscription-form">
+    <h2>Add / Update Subscription</h2>
+    <form (ngSubmit)="onSubmit()">
+      <label for="typeSub">Type:</label>
+      <input type="text" [(ngModel)]="subscription.typeSub" name="typeSub" required />
+  
+      <label for="startDate">Start Date:</label>
+      <input type="date" [(ngModel)]="subscription.startDate" name="startDate" required />
+  
+      <label for="endDate">End Date:</label>
+      <input type="date" [(ngModel)]="subscription.endDate" name="endDate" required />
+  
+      <button type="submit">{{ isUpdating ? 'Update' : 'Add' }} Subscription</button>
+    </form>
+  </div>
+  
+  <div class="subscription-list">
+    <h2>Subscriptions</h2>
+    <ul>
+      <li *ngFor="let sub of subscriptions">
+        {{ sub.typeSub }} - {{ sub.startDate }} to {{ sub.endDate }}
+        <button (click)="editSubscription(sub)">Edit</button>
+      </li>
+    </ul>
+  </div>
+  
