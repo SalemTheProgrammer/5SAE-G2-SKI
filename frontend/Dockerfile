@@ -4,7 +4,8 @@ FROM node:20 AS build
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to install dependencies first
+# Copy package.json and package-lock.json (if available) to install dependencies first
+# This takes advantage of Docker's layer caching
 COPY package*.json ./
 
 # Install dependencies
@@ -16,17 +17,14 @@ COPY . .
 # Build the Angular project for production
 RUN npm run build -- --project=frontned-gestion-de-ski --configuration production
 
-# Stage 2: Serve the Angular application with NGINX
-FROM nginx:alpine
+# Stage 2: Serve the Angular application with Apache
+FROM httpd:alpine
 
-# Remove default NGINX static files
-RUN rm -rf /usr/share/nginx/html/*
-
-# Copy the built Angular files from the previous stage to NGINX's HTML directory
-COPY --from=build /app/dist/frontned-gestion-de-ski /usr/share/nginx/html
+# Copy the built Angular files from the previous stage to Apache's HTML directory
+COPY --from=build /app/dist/frontned-gestion-de-ski /usr/local/apache2/htdocs/
 
 # Expose port 80 to the host
 EXPOSE 80
 
-# Start NGINX
-CMD ["nginx", "-g", "daemon off;"]
+# Start Apache
+CMD ["httpd-foreground"]
