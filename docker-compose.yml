@@ -29,8 +29,10 @@ services:
     tty: true
 
   app-angular:
-   depends_on:
+    depends_on:
       - app-spring
+
+      
     build: ./angular
     restart: on-failure
     ports:
