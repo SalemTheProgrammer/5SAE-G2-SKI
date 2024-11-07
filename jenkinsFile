@@ -29,7 +29,7 @@ pipeline {
 
   stage('Run integration Tests') {
             steps {
-                sh 'mvn -Dtest=InstructorServicesIntegrationTest test'
+                sh 'mvn -Dtest=InstructorServicesJUnitTest test'
             }
         }
 
