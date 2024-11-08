@@ -15,17 +15,16 @@ RUN npm install
 COPY . .
 
 # Build the Angular project for production
-RUN npm run build -- --project=INESfront --configuration production
+RUN npm run build -- --project=frontendski --configuration production
 
 # Stage 2: Serve the Angular application with Apache
 FROM httpd:alpine
 
 # Copy the built Angular files from the previous stage to Apache's HTML directory
-COPY --from=build /app/dist/INESfront /usr/local/apache2/htdocs/
+COPY --from=build /app/dist/frontendski /usr/local/apache2/htdocs/
 
 # Expose port 80 to the host
 EXPOSE 80
 
 # Start Apache
 CMD ["httpd-foreground"]
-
