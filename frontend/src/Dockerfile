@@ -1,31 +1,15 @@
-# Stage 1: Build the Angular application
-FROM node:20 AS build
+FROM node:18 
 
-# Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if available) to install dependencies first
-# This takes advantage of Docker's layer caching
 COPY package*.json ./
 
-# Install dependencies
+RUN npm install -g @angular/cli
+
 RUN npm install
 
-# Copy the Angular project files into the container
 COPY . .
 
-# Build the Angular project for production
-RUN npm run build -- --project=frontend --configuration production
+EXPOSE 4200
 
-# Stage 2: Serve the Angular application with Apache
-FROM httpd:alpine
-
-# Copy the built Angular files from the previous stage to Apache's HTML directory
-COPY --from=build /app/dist/frontend /usr/local/apache2/htdocs/
-
-# Expose port 80 to the host
-EXPOSE 80
-
-# Start Apache
-CMD ["httpd-foreground"]
-
+CMD ["ng", "serve", "--host", "0.0.0.0"]
