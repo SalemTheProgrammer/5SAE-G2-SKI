@@ -44,7 +44,7 @@ public class PisteServicesImpl implements  IPisteServices{
 
         return pisteRepository.findById(numPiste).orElse(null);
 
-       
+
    }
 }
 
