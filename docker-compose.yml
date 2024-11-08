@@ -26,13 +26,13 @@ services:
     stdin_open: true
     tty: true
 
-  app-angular:
-    depends_on:
-      - app-spring
-    build: ./frontend  # Assurez-vous que ce répertoire contient un Dockerfile
-    ports:
-      - "4200:4200"
-    restart: on-failure
+ # app-angular:
+   # depends_on:
+   #   - app-spring
+   # build: ./frontend  # Assurez-vous que ce répertoire contient un Dockerfile
+   # ports:
+    #  - "4200:4200"
+    #restart: on-failure
 
 volumes:
   db:
