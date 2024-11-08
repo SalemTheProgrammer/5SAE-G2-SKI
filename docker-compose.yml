@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mysqldb:
     image: mysql:8.0
@@ -27,11 +25,11 @@ services:
         "spring.jpa.hibernate.ddl-auto": "update"}'
     stdin_open: true
     tty: true
+
   app-angular:
     depends_on:
       - app-spring
-    build: ./frontend
-    #image: cyrinemezzi/cyrinemezzi-5sae7-g1-ski-angular:1.0.0
+    build: ./frontend  # Assurez-vous que ce répertoire contient un Dockerfile
     ports:
       - "4200:4200"
     restart: on-failure
