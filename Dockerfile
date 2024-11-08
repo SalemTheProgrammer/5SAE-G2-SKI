@@ -1,11 +1,10 @@
 # Stage 1: Build the Angular application
-FROM node:20 AS build
+FROM node:20-alpine AS build
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available) to install dependencies first
-# This takes advantage of Docker's layer caching
+# Copy package.json and package-lock.json to install dependencies first
 COPY package*.json ./
 
 # Install dependencies
